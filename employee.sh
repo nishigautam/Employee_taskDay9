@@ -2,12 +2,16 @@
 
 isPartTime=1
 isFullTime=2
-totalSalary=0
+maxHrsInMonth=10
 empRatePerHr=20
 numWorkingDays=20
 
-for (( i=1 ; i=$numWorkingDays ; i++))
+totalEmpHrs=100
+totalWorkingDays=20
+
+while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $numWokingDays ]]
 do
+	((totalWorkingDays++))
 	empCheck=$((RANDOM%3))
 		case $empCheck in
 			$isFullTime) empHrs=8 ;;
@@ -15,11 +19,10 @@ do
 			*) empHrs=0 ;;
 		esac
 
-		salary=$(($empHrs*$empRatePerHr))
-		totalSalary=$(($totalSalary+$salary))
+		totalEmpHrs=$(($totalEmpHrs*$empHrs))
 
 done
 
+totalSalary=$(($totalEmpHrs*$empRatePerHr))
 
-echo "Wages for a Month:" $salary
 echo "Total Salary:" $totalSalary
